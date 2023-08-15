@@ -13,6 +13,11 @@ class LoginPage extends StatefulWidget {
 class _LoginPage extends State<LoginPage> {
   final emailTextController = TextEditingController();
   final passwordTextController = TextEditingController();
+  Widget buildEmail() {
+    return MyTextField(
+        controller: emailTextController, hintText: 'Email', obscureText: false);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +34,7 @@ class _LoginPage extends State<LoginPage> {
                 ),
                 //logo
 
-                Icon(
+                const Icon(
                   Icons.lock,
                   size: 100,
                 ),
@@ -39,11 +44,7 @@ class _LoginPage extends State<LoginPage> {
                   height: 25,
                 ),
 
-                //email
-                MyTextField(
-                    controller: emailTextController,
-                    hintText: 'Email',
-                    obscureText: false),
+                buildEmail(),
                 //password
                 const SizedBox(
                   height: 10,
@@ -63,7 +64,7 @@ class _LoginPage extends State<LoginPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Not a member ? '),
+                    const Text('Not a member ? '),
                     GestureDetector(
                       onTap: widget.onTap,
                       child: const Text(
