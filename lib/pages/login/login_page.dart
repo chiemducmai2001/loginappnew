@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:loginapp/components/button.dart';
 import 'package:loginapp/components/text_field.dart';
 
+import 'components/components.dart';
+
 class LoginPage extends StatefulWidget {
   final Function()? onTap;
   const LoginPage({super.key, required this.onTap});
@@ -39,7 +41,7 @@ class _LoginPage extends State<LoginPage> {
                   size: 100,
                 ),
                 //welcome back
-                const Text("Welcome back, you're been missed!"),
+                const HeaderWidget(),
                 const SizedBox(
                   height: 25,
                 ),
