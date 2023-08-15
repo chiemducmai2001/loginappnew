@@ -20,6 +20,17 @@ class _LoginPage extends State<LoginPage> {
         controller: emailTextController, hintText: 'Email', obscureText: false);
   }
 
+  Widget buildPassword() {
+    return MyTextField(
+        controller: passwordTextController,
+        hintText: 'Password',
+        obscureText: true);
+  }
+
+  Widget SignInButton() {
+    return MyButton(onTap: () {}, text: 'Sign In');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,19 +58,12 @@ class _LoginPage extends State<LoginPage> {
                 ),
 
                 buildEmail(),
-                //password
+                buildPassword(),
                 const SizedBox(
                   height: 10,
                 ),
-                MyTextField(
-                    controller: passwordTextController,
-                    hintText: 'Password',
-                    obscureText: true),
+                SignInButton(),
                 //sign in button
-                const SizedBox(
-                  height: 10,
-                ),
-                MyButton(onTap: () {}, text: 'Sign In'),
                 const SizedBox(
                   height: 10,
                 ),
@@ -77,7 +81,6 @@ class _LoginPage extends State<LoginPage> {
                     )
                   ],
                 )
-                //go to reg page
               ],
             ),
           ),

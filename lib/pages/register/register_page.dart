@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loginapp/components/button.dart';
 import 'package:loginapp/components/text_field.dart';
+import 'package:loginapp/pages/register/components/header.dart';
 
 class RegisterPage extends StatefulWidget {
   final Function()? onTap;
@@ -14,6 +15,25 @@ class _RegisterPage extends State<RegisterPage> {
   final emailTextController = TextEditingController();
   final passwordTextController = TextEditingController();
   final confirmPasswordTextController = TextEditingController();
+  Widget buildEmail() {
+    return MyTextField(
+        controller: emailTextController, hintText: 'Email', obscureText: false);
+  }
+
+  Widget buildPassword() {
+    return MyTextField(
+        controller: passwordTextController,
+        hintText: 'Password',
+        obscureText: true);
+  }
+
+  Widget buildConfirmPassword() {
+    return MyTextField(
+        controller: confirmPasswordTextController,
+        hintText: 'Confirm Password',
+        obscureText: true);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,37 +50,29 @@ class _RegisterPage extends State<RegisterPage> {
                 ),
                 //logo
 
-                Icon(
+                const Icon(
                   Icons.lock,
                   size: 100,
                 ),
                 //welcome back
-                const Text("Let's create an account for you"),
+                HeaderWidget(),
                 const SizedBox(
                   height: 25,
                 ),
-
-                //email
-                MyTextField(
-                    controller: emailTextController,
-                    hintText: 'Email',
-                    obscureText: false),
-                //password
+                buildEmail(),
                 const SizedBox(
                   height: 10,
                 ),
-                MyTextField(
-                    controller: passwordTextController,
-                    hintText: 'Password',
-                    obscureText: true),
+                buildPassword(),
+                const SizedBox(
+                  height: 10,
+                ),
+                buildConfirmPassword(),
                 // confirm password
                 const SizedBox(
                   height: 10,
                 ),
-                MyTextField(
-                    controller: confirmPasswordTextController,
-                    hintText: 'Confirm Password',
-                    obscureText: true),
+
                 //sign in button
                 const SizedBox(
                   height: 10,
