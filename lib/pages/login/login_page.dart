@@ -1,6 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:loginapp/components/button.dart';
+import 'package:loginapp/components/signInSignUpButtons.dart';
 import 'package:loginapp/components/text_field.dart';
+import 'package:loginapp/pages/home_page.dart';
+import 'package:loginapp/pages/register/register_page.dart';
 
 import 'components/components.dart';
 
@@ -27,8 +32,17 @@ class _LoginPage extends State<LoginPage> {
         obscureText: true);
   }
 
-  Widget SignInButton() {
-    return MyButton(onTap: () {}, text: 'Sign In');
+  Widget buildSignInButton() {
+    return SignInSignUpButton(context, true, () {
+      FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+              email: emailTextController.text,
+              password: passwordTextController.text)
+          .then((value) => {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => HomePage()))
+              });
+    });
   }
 
   @override
@@ -62,17 +76,25 @@ class _LoginPage extends State<LoginPage> {
                 const SizedBox(
                   height: 10,
                 ),
-                SignInButton(),
+                Container(),
                 //sign in button
                 const SizedBox(
                   height: 10,
                 ),
+                buildSignInButton(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text('Not a member ? '),
                     GestureDetector(
-                      onTap: widget.onTap,
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RegisterPage(
+                                      onTap: () {},
+                                    )));
+                      },
                       child: const Text(
                         ' Register now ',
                         style: TextStyle(
