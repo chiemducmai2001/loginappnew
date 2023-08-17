@@ -31,6 +31,16 @@ class _LoginPage extends State<LoginPage> {
   }
 
   Widget buildSignInButton() {
+    /* handle error invalid form
+     for example:  Register
+     - Họ tên: Nhập vào k chưa kí tự đặc biệt và k dc rỗng
+     - phone: Chỉ chưa số 
+     - giới tính: chọn 1 trong ba 
+     - email: Nhập đúng định dạng
+     - password: phải lớn 6 kí tự,...
+     - confirm password: true == password
+
+     */
     return SignInSignUpButton(context, true, () {
       FirebaseAuth.instance
           .signInWithEmailAndPassword(
