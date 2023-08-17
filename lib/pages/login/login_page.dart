@@ -4,6 +4,7 @@ import 'package:loginapp/components/signInSignUpButtons.dart';
 import 'package:loginapp/components/text_field.dart';
 import 'package:loginapp/pages/home_page.dart';
 import 'package:loginapp/pages/register/register_page.dart';
+import 'package:loginapp/utils/app_valid.dart';
 
 import 'components/components.dart';
 
@@ -18,9 +19,16 @@ class LoginPage extends StatefulWidget {
 class _LoginPage extends State<LoginPage> {
   final emailTextController = TextEditingController();
   final passwordTextController = TextEditingController();
+  String? msgEmail;
   Widget buildEmail() {
     return MyTextField(
-        controller: emailTextController, hintText: 'Email', obscureText: false);
+        onChanged: (value) {
+          msgEmail = AppValid.validateFullName(value);
+          setState(() {});
+        },
+        controller: emailTextController,
+        hintText: 'Email',
+        obscureText: false);
   }
 
   Widget buildPassword() {
@@ -83,6 +91,11 @@ class _LoginPage extends State<LoginPage> {
                 const SizedBox(
                   height: 10,
                 ),
+                if (msgEmail != null)
+                  Text(
+                    msgEmail ?? "",
+                    style: const TextStyle(color: Colors.red),
+                  ),
                 buildPassword(),
                 const SizedBox(
                   height: 10,
