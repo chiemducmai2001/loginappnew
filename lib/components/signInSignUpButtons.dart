@@ -11,7 +11,7 @@ Container SignInSignUpButton(
       onPressed: () {
         onTap();
       },
-      child: Text(
+      child:   Text(
         isLogin ? "Login In" : "Sign Up",
         style: TextStyle(
             color: Colors.black26, fontWeight: FontWeight.bold, fontSize: 16),

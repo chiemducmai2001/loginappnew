@@ -16,23 +16,21 @@ class _HomePage extends State<HomePage> {
     return Scaffold(
       body: SafeArea(
           child: Center(
-        child: Container(
-          child: Column(
-            children: [
-              Text('Đây là Home Page'),
-              ElevatedButton(
-                  onPressed: () {
-                    FirebaseAuth.instance.signOut().then((value) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  RegisterPage(onTap: () {})));
-                    });
-                  },
-                  child: Text('Log Out'))
-            ],
-          ),
+        child: Column(
+          children: [
+          const  Text('Đây là Home Page'),
+            ElevatedButton(
+                onPressed: () {
+                  FirebaseAuth.instance.signOut().then((value) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                RegisterPage(onTap: () {})));
+                  });
+                },
+                child: const Text('Log Out'))
+          ], 
         ),
       )),
     );

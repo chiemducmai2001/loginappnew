@@ -37,7 +37,7 @@ class _RegisterPage extends State<RegisterPage> {
         obscureText: true);
   }
 
-  Widget BuildSignInSignUpButton() {
+  Widget buildSignInSignUpButton() {
     return SignInSignUpButton(context, false, () {
       FirebaseAuth.instance
           .createUserWithEmailAndPassword(
@@ -90,7 +90,7 @@ class _RegisterPage extends State<RegisterPage> {
                 const SizedBox(
                   height: 10,
                 ),
-                BuildSignInSignUpButton(),
+                buildSignInSignUpButton(),
                 //sign in button
                 const SizedBox(
                   height: 10,
@@ -99,7 +99,7 @@ class _RegisterPage extends State<RegisterPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Already have an account ?'),
+                   const Text('Already have an account ?'),
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
