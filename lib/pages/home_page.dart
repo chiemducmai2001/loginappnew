@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:loginapp/components/signInSignUpButtons.dart';
+import 'package:loginapp/pages/register/register_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -10,6 +13,28 @@ class HomePage extends StatefulWidget {
 class _HomePage extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Text('Đây là home page');
+    return Scaffold(
+      body: SafeArea(
+          child: Center(
+        child: Container(
+          child: Column(
+            children: [
+              Text('Đây là Home Page'),
+              ElevatedButton(
+                  onPressed: () {
+                    FirebaseAuth.instance.signOut().then((value) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  RegisterPage(onTap: () {})));
+                    });
+                  },
+                  child: Text('Log Out'))
+            ],
+          ),
+        ),
+      )),
+    );
   }
 }

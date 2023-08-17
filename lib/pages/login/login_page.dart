@@ -1,7 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:loginapp/components/button.dart';
 import 'package:loginapp/components/signInSignUpButtons.dart';
 import 'package:loginapp/components/text_field.dart';
 import 'package:loginapp/pages/home_page.dart';
@@ -72,6 +70,9 @@ class _LoginPage extends State<LoginPage> {
                 ),
 
                 buildEmail(),
+                const SizedBox(
+                  height: 10,
+                ),
                 buildPassword(),
                 const SizedBox(
                   height: 10,

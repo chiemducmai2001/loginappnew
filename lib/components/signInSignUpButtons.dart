@@ -5,8 +5,8 @@ Container SignInSignUpButton(
   return Container(
     width: MediaQuery.of(context).size.width,
     height: 50,
-    margin: const EdgeInsets.fromLTRB(0, 10, 0, 20),
-    decoration: BoxDecoration(borderRadius: BorderRadius.circular(90)),
+    margin: const EdgeInsets.all(20),
+    decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
     child: ElevatedButton(
       onPressed: () {
         onTap();
@@ -26,3 +26,29 @@ Container SignInSignUpButton(
     ),
   );
 }
+
+// Container SignOutButton(BuildContext context, Function ontap) {
+//   return Container(
+//     width: MediaQuery.of(context).size.width,
+//     height: 50,
+//     margin: const EdgeInsets.all(20),
+//     decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
+//     child: ElevatedButton(
+//       onPressed: () {
+//         ontap();
+//       },
+//       child: Text(
+//         'Sign Out ',
+//         style: TextStyle(
+//             color: Colors.black26, fontWeight: FontWeight.bold, fontSize: 16),
+//       ),
+//       style: ButtonStyle(
+//           backgroundColor: MaterialStateProperty.resolveWith((states) {
+//         if (states.contains(MaterialState.pressed)) {
+//           return Colors.black26;
+//         }
+//         return Colors.white;
+//       })),
+//     ),
+//   );
+// }

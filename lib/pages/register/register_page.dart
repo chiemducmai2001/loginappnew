@@ -58,69 +58,66 @@ class _RegisterPage extends State<RegisterPage> {
     return Scaffold(
       backgroundColor: Colors.grey[300],
       body: SafeArea(
-        child: Flexible(
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  //logo
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(
+                  height: 30,
+                ),
+                //logo
 
-                  const Icon(
-                    Icons.lock,
-                    size: 100,
-                  ),
-                  //welcome back
-                  HeaderWidget(),
-                  const SizedBox(
-                    height: 25,
-                  ),
-                  buildEmail(),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  buildPassword(),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  buildConfirmPassword(),
-                  // confirm password
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  BuildSignInSignUpButton(),
-                  //sign in button
-                  const SizedBox(
-                    height: 10,
-                  ),
+                const Icon(
+                  Icons.lock,
+                  size: 100,
+                ),
+                //welcome back
+                HeaderWidget(),
+                const SizedBox(
+                  height: 25,
+                ),
+                buildEmail(),
+                const SizedBox(
+                  height: 10,
+                ),
+                buildPassword(),
+                const SizedBox(
+                  height: 10,
+                ),
+                buildConfirmPassword(),
+                // confirm password
+                const SizedBox(
+                  height: 10,
+                ),
+                BuildSignInSignUpButton(),
+                //sign in button
+                const SizedBox(
+                  height: 10,
+                ),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Already have an account ?'),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      LoginPage(onTap: () {})));
-                        },
-                        child: const Text(
-                          ' Login now ',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.blue),
-                        ),
-                      )
-                    ],
-                  )
-                  //go to reg page
-                ],
-              ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Already have an account ?'),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginPage(onTap: () {})));
+                      },
+                      child: const Text(
+                        ' Login now ',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, color: Colors.blue),
+                      ),
+                    )
+                  ],
+                )
+                //go to reg page
+              ],
             ),
           ),
         ),
