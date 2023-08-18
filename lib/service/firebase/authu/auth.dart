@@ -1,9 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthParamsApi {
-  AuthParamsApi({this.email, this.password});
+  AuthParamsApi({this.email, this.password, this.phonenumber});
   String? email;
   String? password;
+  String? phonenumber;
 }
 
 class FirebaseAuthentication {

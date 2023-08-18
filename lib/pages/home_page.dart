@@ -18,19 +18,18 @@ class _HomePage extends State<HomePage> {
           child: Center(
         child: Column(
           children: [
-          const  Text('Đây là Home Page'),
+            const Text('Đây là Home Page'),
             ElevatedButton(
                 onPressed: () {
                   FirebaseAuth.instance.signOut().then((value) {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                RegisterPage(onTap: () {})));
+                            builder: (context) => RegisterPage(onTap: () {})));
                   });
                 },
                 child: const Text('Log Out'))
-          ], 
+          ],
         ),
       )),
     );
