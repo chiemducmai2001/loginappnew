@@ -22,7 +22,6 @@ class AppValid {
       return ' Số điện thoại phải lớn hơn 8 kí tự';
     }
     final regex = RegExp('!@#<>?":_``~;[]\|=-+)(*&^%1234567890');
-    ;
     if (!regex.hasMatch(value)) {
       return ' Số điện thoại không được chứa kí tự đặc biệt';
     }
