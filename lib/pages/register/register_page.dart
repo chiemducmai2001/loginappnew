@@ -24,6 +24,9 @@ class _RegisterPage extends State<RegisterPage> {
   final phoneNumberTextController = TextEditingController();
   String? msgFullName;
   String? msgPhoneNumber;
+  String? msgEmail;
+  String? msgPassword;
+  String? msgConfirmPassword;
   Widget buildFullName() {
     return MyTextField(
         onChanged: (value) {
@@ -38,7 +41,7 @@ class _RegisterPage extends State<RegisterPage> {
   Widget buildEmail() {
     return MyTextField(
         onChanged: (value) {
-          msgFullName = AppValid.validateFullName(value);
+          msgEmail = AppValid.validateEmail(value);
           setState(() {});
         },
         controller: emailTextController,
@@ -55,6 +58,11 @@ class _RegisterPage extends State<RegisterPage> {
 
   Widget buildConfirmPassword() {
     return MyTextField(
+        onChanged: (value) {
+          msgConfirmPassword = AppValid.validateConfirmPassword(
+              value, passwordTextController.text);
+          setState(() {});
+        },
         controller: confirmPasswordTextController,
         hintText: 'Confirm Password',
         obscureText: true);
@@ -64,6 +72,7 @@ class _RegisterPage extends State<RegisterPage> {
     return MyTextField(
         onChanged: (value) {
           msgPhoneNumber = AppValid.validatePhoneNumBer(value);
+          setState(() {});
         },
         controller: phoneNumberTextController,
         hintText: 'Phone Number',
@@ -103,7 +112,7 @@ class _RegisterPage extends State<RegisterPage> {
                   ),
                   const Icon(
                     Icons.lock,
-                    size: 100,
+                    size: 60,
                   ),
                   //welcome back
                   HeaderWidget(),
@@ -116,7 +125,15 @@ class _RegisterPage extends State<RegisterPage> {
                       msgFullName ?? "",
                       style: const TextStyle(color: Colors.red),
                     ),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   buildEmail(),
+                  if (msgEmail != null)
+                    Text(
+                      msgEmail ?? "",
+                      style: const TextStyle(color: Colors.red),
+                    ),
                   const SizedBox(
                     height: 10,
                   ),
@@ -134,6 +151,11 @@ class _RegisterPage extends State<RegisterPage> {
                     height: 10,
                   ),
                   buildConfirmPassword(),
+                  if (msgConfirmPassword != null)
+                    Text(
+                      msgConfirmPassword ?? "",
+                      style: const TextStyle(color: Colors.red),
+                    ),
                   // confirm password
                   const SizedBox(
                     height: 10,

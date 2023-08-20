@@ -20,10 +20,11 @@ class _LoginPage extends State<LoginPage> {
   final emailTextController = TextEditingController();
   final passwordTextController = TextEditingController();
   String? msgEmail;
+  String? msgPassword;
   Widget buildEmail() {
     return MyTextField(
         onChanged: (value) {
-          msgEmail = AppValid.validateFullName(value);
+          msgEmail = AppValid.validateEmail(value);
           setState(() {});
         },
         controller: emailTextController,
@@ -33,6 +34,10 @@ class _LoginPage extends State<LoginPage> {
 
   Widget buildPassword() {
     return MyTextField(
+        onChanged: (value) {
+          msgPassword = AppValid.validatePassword(value);
+          setState(() {});
+        },
         controller: passwordTextController,
         hintText: 'Password',
         obscureText: true);
@@ -82,7 +87,6 @@ class _LoginPage extends State<LoginPage> {
                   Icons.lock,
                   size: 100,
                 ),
-                //welcome back
                 const HeaderWidget(),
                 const SizedBox(
                   height: 25,
@@ -101,6 +105,11 @@ class _LoginPage extends State<LoginPage> {
                 const SizedBox(
                   height: 10,
                 ),
+                if (msgPassword != null)
+                  Text(
+                    msgPassword ?? "",
+                    style: const TextStyle(color: Colors.red),
+                  ),
                 Container(),
                 //sign in button
                 const SizedBox(
