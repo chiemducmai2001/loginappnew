@@ -6,6 +6,7 @@ import 'package:loginapp/pages/home_page.dart';
 import 'package:loginapp/pages/register/register_page.dart';
 import 'package:loginapp/utils/app_valid.dart';
 
+import '../forgot_password/forgot_password_page.dart';
 import 'components/components.dart';
 
 class LoginPage extends StatefulWidget {
@@ -21,6 +22,7 @@ class _LoginPage extends State<LoginPage> {
   final passwordTextController = TextEditingController();
   String? msgEmail;
   String? msgPassword;
+
   Widget buildEmail() {
     return MyTextField(
         onChanged: (value) {
@@ -44,16 +46,6 @@ class _LoginPage extends State<LoginPage> {
   }
 
   Widget buildSignInButton() {
-    /* handle error invalid form
-     for example:  Register
-     - Họ tên: Nhập vào k chưa kí tự đặc biệt và k dc rỗng
-     - phone: Chỉ chưa số 
-     - giới tính: chọn 1 trong ba 
-     - email: Nhập đúng định dạng
-     - password: phải lớn 6 kí tự,...
-     - confirm password: true == password
-
-     */
     return SignInSignUpButton(context, true, () {
       FirebaseAuth.instance
           .signInWithEmailAndPassword(
@@ -101,6 +93,29 @@ class _LoginPage extends State<LoginPage> {
                     msgEmail ?? "",
                     style: const TextStyle(color: Colors.red),
                   ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ForgotPasswordPage()));
+                        },
+                        child: Text('Forgot Password?',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blue)),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
                 buildPassword(),
                 const SizedBox(
                   height: 10,

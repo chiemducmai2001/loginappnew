@@ -38,19 +38,23 @@ class AppValid {
     if (!regex.hasMatch(value)) {
       return 'Nhập vào đúng định dạng email @';
     }
+    return null;
   }
 
-  static String? validatePassword(String value) {
+  static String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
       return 'Không được để trống';
-    } else if (value.length < 6) {
+    } else if (value.length < 5) {
       return 'Mật khẩu lặp lại phải lớn hơn 6 kí tự';
     }
-    final regex =
-        RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
-    if (!regex.hasMatch(value)) {
-      return ' Nhập mật khẩu đúng định dạng ';
-    }
+    // final regex =
+    //     RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
+    // if (!regex.hasMatch(value)) {
+    //   return 'Nhập mật khẩu đúng định dạng';
+    // } else {
+    //   return null;
+    // }
+    return null;
   }
 
   static String? validateConfirmPassword(String? value, String? Password) {
@@ -59,5 +63,6 @@ class AppValid {
     } else if (value.length < 6) {
       return 'Mật khẩu lặp lại phải lớn hơn 6 kí tự';
     } else if (value != Password) return 'Không trùng với mật khẩu trên';
+    return null;
   }
 }

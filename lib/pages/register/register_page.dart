@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:loginapp/components/signInSignUpButtons.dart';
@@ -17,24 +18,51 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPage extends State<RegisterPage> {
-  final fullNameTextController = TextEditingController();
+  final firstNameTextController = TextEditingController();
+  final lastNameTextController = TextEditingController();
   final emailTextController = TextEditingController();
   final passwordTextController = TextEditingController();
   final confirmPasswordTextController = TextEditingController();
   final phoneNumberTextController = TextEditingController();
-  String? msgFullName;
+  final ageTextController = TextEditingController();
+  @override
+  void dispose() {
+    firstNameTextController.dispose();
+    lastNameTextController.dispose();
+    emailTextController.dispose();
+    passwordTextController.dispose();
+    confirmPasswordTextController.dispose();
+    phoneNumberTextController.dispose();
+    ageTextController.dispose();
+    super.dispose();
+  }
+
+  String? msgFirstName;
+  String? msgLastName;
   String? msgPhoneNumber;
   String? msgEmail;
   String? msgPassword;
   String? msgConfirmPassword;
-  Widget buildFullName() {
+  String? msgAge;
+  Widget buildFisrtName() {
     return MyTextField(
         onChanged: (value) {
-          msgFullName = AppValid.validateFullName(value);
+          msgFirstName = AppValid.validateFullName(value);
           setState(() {});
         },
-        controller: fullNameTextController,
-        hintText: 'Full Name',
+        controller: firstNameTextController,
+        hintText: 'First Name',
+        obscureText: false);
+  }
+
+  Widget buildLastName() {
+    return MyTextField(
+        onChanged: (value) {
+          msgLastName = AppValid.validateFullName(value);
+          setState(() {});
+        },
+        controller: lastNameTextController,
+        hintText: 'Last Name',
         obscureText: false);
   }
 
@@ -68,6 +96,18 @@ class _RegisterPage extends State<RegisterPage> {
         obscureText: true);
   }
 
+  Widget buildAge() {
+    return MyTextField(
+        onChanged: (value) {
+          msgConfirmPassword =
+              AppValid.validateConfirmPassword(value, ageTextController.text);
+          setState(() {});
+        },
+        controller: ageTextController,
+        hintText: 'Age',
+        obscureText: false);
+  }
+
   Widget buildPhoneNumber() {
     return MyTextField(
         onChanged: (value) {
@@ -83,14 +123,29 @@ class _RegisterPage extends State<RegisterPage> {
     return SignInSignUpButton(context, false, () {
       FirebaseAuth.instance
           .createUserWithEmailAndPassword(
-              email: emailTextController.text,
-              password: passwordTextController.text)
+              email: emailTextController.text.trim(),
+              password: passwordTextController.text.trim())
           .then((value) {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => HomePage()));
+        addUserDetails(
+            firstNameTextController.text.trim(),
+            lastNameTextController.text.trim(),
+            int.parse(ageTextController.text.trim()),
+            emailTextController.text.trim());
       }).onError((error, stackTrace) {
         print("Error ${error.toString()}");
       });
+    });
+  }
+
+  Future addUserDetails(
+      String firstName, String lastName, int age, String email) async {
+    await FirebaseFirestore.instance.collection('users').add({
+      'first name': firstName,
+      'last name': lastName,
+      'age': age,
+      'email': email,
     });
   }
 
@@ -119,10 +174,28 @@ class _RegisterPage extends State<RegisterPage> {
                   const SizedBox(
                     height: 25,
                   ),
-                  buildFullName(),
-                  if (msgFullName != null)
+                  buildFisrtName(),
+                  if (msgFirstName != null)
                     Text(
-                      msgFullName ?? "",
+                      msgFirstName ?? "",
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  buildLastName(),
+                  if (msgLastName != null)
+                    Text(
+                      msgLastName ?? "",
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  buildAge(),
+                  if (msgAge != null)
+                    Text(
+                      msgAge ?? "",
                       style: const TextStyle(color: Colors.red),
                     ),
                   const SizedBox(
