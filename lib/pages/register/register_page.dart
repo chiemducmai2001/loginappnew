@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:datepicker_dropdown/datepicker_dropdown.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:loginapp/components/signInSignUpButtons.dart';
@@ -24,7 +25,8 @@ class _RegisterPage extends State<RegisterPage> {
   final passwordTextController = TextEditingController();
   final confirmPasswordTextController = TextEditingController();
   final phoneNumberTextController = TextEditingController();
-  final ageTextController = TextEditingController();
+
+  final today = DateUtils.dateOnly(DateTime.now());
   @override
   void dispose() {
     firstNameTextController.dispose();
@@ -33,7 +35,7 @@ class _RegisterPage extends State<RegisterPage> {
     passwordTextController.dispose();
     confirmPasswordTextController.dispose();
     phoneNumberTextController.dispose();
-    ageTextController.dispose();
+
     super.dispose();
   }
 
@@ -97,15 +99,28 @@ class _RegisterPage extends State<RegisterPage> {
   }
 
   Widget buildAge() {
-    return MyTextField(
-        onChanged: (value) {
-          msgConfirmPassword =
-              AppValid.validateConfirmPassword(value, ageTextController.text);
-          setState(() {});
-        },
-        controller: ageTextController,
-        hintText: 'Age',
-        obscureText: false);
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+      child: DropdownDatePicker(
+        inputDecoration: InputDecoration(
+            enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.grey, width: 1.0),
+            ),
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5))), // optional
+        isDropdownHideUnderline: true, // optional
+        isFormValidator: true, // optional
+        startYear: 1900, // optional
+        endYear: 2050, // optional
+        width: 7, // optional
+        selectedDay: 1,
+        selectedMonth: 01, // optional
+        selectedYear: 2000, // optional
+        onChangedDay: (valueDay) => print('onChangedDay: $valueDay'),
+        onChangedMonth: (valueMonth) => print('onChangedMonth: $valueMonth'),
+        onChangedYear: (valueYear) => print('onChangedYear: $valueYear'),
+      ),
+    );
   }
 
   Widget buildPhoneNumber() {
@@ -128,25 +143,24 @@ class _RegisterPage extends State<RegisterPage> {
           .then((value) {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => HomePage()));
-        addUserDetails(
-            firstNameTextController.text.trim(),
-            lastNameTextController.text.trim(),
-            int.parse(ageTextController.text.trim()),
-            emailTextController.text.trim());
       }).onError((error, stackTrace) {
         print("Error ${error.toString()}");
       });
     });
   }
 
-  Future addUserDetails(
-      String firstName, String lastName, int age, String email) async {
-    await FirebaseFirestore.instance.collection('users').add({
-      'first name': firstName,
-      'last name': lastName,
-      'age': age,
-      'email': email,
-    });
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
+  Future<void> addUser() {
+    return users
+        .add({
+          'first name': firstNameTextController.text,
+          'lastName': lastNameTextController.text,
+          'email': emailTextController.text,
+          'phone number': phoneNumberTextController.text,
+          'password': passwordTextController.text,
+        })
+        .then((value) => print('User Added'))
+        .catchError((error) => print("Failed to add user: $error"));
   }
 
   @override
@@ -158,7 +172,7 @@ class _RegisterPage extends State<RegisterPage> {
         child: SingleChildScrollView(
           child: Center(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              padding: const EdgeInsets.symmetric(horizontal: 2.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -190,16 +204,19 @@ class _RegisterPage extends State<RegisterPage> {
                       style: const TextStyle(color: Colors.red),
                     ),
                   const SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
+
+                  DateOfBirth(),
                   buildAge(),
+
                   if (msgAge != null)
                     Text(
                       msgAge ?? "",
                       style: const TextStyle(color: Colors.red),
                     ),
                   const SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
                   buildEmail(),
                   if (msgEmail != null)

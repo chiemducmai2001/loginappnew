@@ -60,8 +60,6 @@ class AppValid {
   static String? validateConfirmPassword(String? value, String? Password) {
     if (value == null || value.isEmpty) {
       return 'Không được để trống';
-    } else if (value.length < 6) {
-      return 'Mật khẩu lặp lại phải lớn hơn 6 kí tự';
     } else if (value != Password) return 'Không trùng với mật khẩu trên';
     return null;
   }
