@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../../components/text_field.dart';
 
 class AddUsers extends StatelessWidget {
-  final ID = TextEditingController();
+  final id = TextEditingController();
   final fullName = TextEditingController();
   final company = TextEditingController();
   final age = TextEditingController();
@@ -31,7 +31,7 @@ class AddUsers extends StatelessWidget {
 
     Future<void> addUser2() {
       return users
-          .doc('full_name')
+          .doc(users.id)
           .set(
             {
               'fullname': fullName.text,
@@ -47,7 +47,7 @@ class AddUsers extends StatelessWidget {
 
     Future<void> updateUser() {
       return users
-          .doc('1')
+          .doc(users.id)
           .update({
             'fullname': fullName.text,
             'company': company.text,
@@ -59,7 +59,7 @@ class AddUsers extends StatelessWidget {
 
     Future<void> deleteUser() {
       return users
-          .doc('1')
+          .doc(users.id)
           .delete()
           .then((value) => print("User Updated"))
           .catchError((error) => print("Failed to add user: $error"));
@@ -67,7 +67,7 @@ class AddUsers extends StatelessWidget {
 
     Future<void> deletePropertyUser() {
       return users
-          .doc('my-test')
+          .doc(users.id)
           .update({'age': FieldValue.delete()})
           .then((value) => print("User's Property Deleted"))
           .catchError(
@@ -84,6 +84,14 @@ class AddUsers extends StatelessWidget {
               child: Column(
                 children: [
                   Text('Add User Test'),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  MyTextField(
+                    controller: id,
+                    hintText: users.id.toString(),
+                    obscureText: false,
+                  ),
                   const SizedBox(
                     height: 30,
                   ),
@@ -113,7 +121,7 @@ class AddUsers extends StatelessWidget {
                   ),
                   TextButton(
                     onPressed: () {
-                      addUser();
+                      addUser2();
                       showDialog<String>(
                         context: context,
                         builder: (BuildContext context) => AlertDialog(

@@ -5,6 +5,7 @@ import 'package:loginapp/components/signInSignUpButtons.dart';
 import 'package:loginapp/components/text_field.dart';
 import 'package:loginapp/components/wall_post.dart';
 import 'package:loginapp/pages/register/register_page.dart';
+import 'package:loginapp/pages/user/add_user.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -91,7 +92,18 @@ class _HomePage extends State<HomePage> {
             Text(
               'Logged in as : ' + currentUser.email!,
               style: TextStyle(color: Colors.grey[400]),
-            )
+            ),
+            GestureDetector(
+              onTap: () {
+                MaterialPageRoute(builder: (context) => AddUsers());
+              },
+              child: Container(
+                color: Colors.yellow.shade600,
+                padding: const EdgeInsets.all(8),
+                // Change button text when light changes state.
+                child: Text('Add User'),
+              ),
+            ),
           ]),
         ));
   }

@@ -6,6 +6,8 @@ import 'package:loginapp/pages/home_page.dart';
 import 'package:loginapp/pages/pratice_UI/coffe_homepage.dart';
 import 'package:loginapp/pages/test_page.dart';
 
+import 'CRUDE/crude_operation.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -23,7 +25,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: LoginOrRegister(),
+      home: CRUDEoperation(),
     );
   }
 }
